@@ -31,8 +31,8 @@ authors:
 - admin
 - Eva Cantoni
 date: "2019-02"
-doi: "https://doi.org/10.1016/j.csda.2018.08.006"
-featured: true
+# doi: "https://doi.org/10.1016/j.csda.2018.08.006"
+featured: false
 projects: []
 publication: '*Computational Statistics & Data Analysis* (130)'
 publication_short: ""

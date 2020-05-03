@@ -11,22 +11,21 @@ authors: [Daniel Flores-Agreda, Eva Cantoni, Rory Wolfe, Stephane Heritier]
 date: "2020-04-08T09:30:00Z"
 date_end: "2020-04-08T10:30:00Z"
 event: Work in Progress (WIP) Seminar ViCBiostat.
-# event_url: https://example.org
+# event_url: http://dfloresag.github.io/Talks/WIP2020/index.html
 featured: false
 image:
   # caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/bzdhc5b3Bxs)'
   # focal_point: Right
 links:
-# - icon: twitter
-#   icon_pack: fab
-#   name: Follow
-#   url: https://twitter.com/georgecushen
+- icon: 
+  # icon_pack: fab
+  name: Slides
+  url: http://dfloresag.github.io/Talks/WIP2020/index.html
 location: School of Public Health and Preventive Medicine - Monash University
 math: true
 projects:
-- internal-project
 publishDate: "2017-01-01T00:00:00Z"
-slides: "#"
+slides: (http://dfloresag.github.io/Talks/WIP2020/index.html)
 summary: An example talk using Academic's Markdown slides feature.
 tags: []
 title: Bootstrapping clustered data via a weighted Laplace approximation
@@ -36,10 +35,3 @@ url_slides: "http://dfloresag.github.io/Talks/WIP2020/index.html"
 url_video: ""
 ---
 
-
-Slides can be added in a few ways:
-
-- **Upload** an existing slide deck to `static/` and link using `url_slides` parameter in the front matter of the talk file
-- **Embed** your slides (e.g. Google Slides) or presentation video on this page using [shortcodes](https://sourcethemes.com/academic/docs/writing-markdown-latex/).
-
-Further talk details can easily be added to this page using *Markdown* and $\rm \LaTeX$ math code.
