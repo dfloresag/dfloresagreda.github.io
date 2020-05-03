@@ -1,7 +1,7 @@
 ---
 authors:
 - admin
-bio: I am a young statistician currently working as a Research Fellow in Biostatistics at the School of Public Health and Preventive Medicine of Monash University.
+bio: School of Public Health and Preventive Medicine of Monash University.
 education:
   courses:
   - course: PhD in Statistics
@@ -16,7 +16,9 @@ education:
 email: ""
 interests:
 - Mixed-Effects Models
+- Bootstrapping Methods
 - Computational Statistics
+- Survival Analysis
 - Forecasting
 organizations:
 - name: Monash University
@@ -25,16 +27,13 @@ role: Research Fellow (Biostatistics)
 social:
 - icon: envelope
   icon_pack: fas
-  link: '#contact'
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/GeorgeCushen
-- icon: google-scholar
+  link: 'mailto:daniel.flores.agreda@gmail.com'
+- icon: researchgate
   icon_pack: ai
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  link: https://www.researchgate.net/profile/Daniel_Flores_Agreda
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: https://github.com/dfloresag
 superuser: true
 title: Daniel Flores-Agreda
 user_groups:
@@ -42,10 +41,7 @@ user_groups:
 - Visitors
 ---
 
-I am a young statistician currently working as a Research Fellow in Biostatistics at the School of Public Health and Preventive Medicine of Monash University. I obtained my PhD in Statistics in 2017 at the University of Geneva, then worked as a Junior Lecturer in Statistics at the Faculty of Business and Economics of the University of Lausanne. 
+I am a young statistician currently working as a Research Fellow in Biostatistics at the School of Public Health and Preventive Medicine of [Monash University](https://www.monash.edu/medicine/sphpm/units/biostats). I obtained my PhD in Statistics in 2017 at the [University of Geneva](https://www.unige.ch/gsem/en/research/institutes/rcs), then worked as a Junior Lecturer at the Faculty of Business and Economics of the [University of Lausanne](https://www.unil.ch/do/en/home.html) teaching courses on Forecasting. 
 
-My research interests in mixed models, bootstrapping method, computational statistics and forecasting. 
-
-My current methodological research includes 
-
-Ongoing cross-disciplinary collaborations include 
+I conduct research in mixed models and their applications. My current projects involve bootstrapping models with random effects and 
+applications of in the field of survival analysis.

@@ -2,7 +2,7 @@
 # A Projects section created with the Portfolio widget.
 widget = "portfolio"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
-active = true  # Activate this widget? true/false
+active = false  # Activate this widget? true/false
 weight = 65  # Order that this section will appear.
 
 title = "Projects"
@@ -26,12 +26,12 @@ subtitle = ""
     tag = "*"
   
   [[content.filter_button]]
-    name = "Deep Learning"
-    tag = "Deep Learning"
+    name = "Bootstrapping GLMM"
+    tag = "Bootstrapping GLMM"
   
   [[content.filter_button]]
-    name = "Other"
-    tag = "Demo"
+    name = "AFT Models with Random Effects"
+    tag = "AFT Models with Random Effects"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
@@ -55,7 +55,7 @@ subtitle = ""
   
   # Background color.
   # color = "navy"
-  
+
   # Background gradient.
   # gradient_start = "DeepSkyBlue"
   # gradient_end = "SkyBlue"
