@@ -26,12 +26,19 @@ abstract: "In the framework of Mixed Models, it is often of interest to provide 
   intervals. The second simulation study serves the purpose of illustrating the 
   properties of our proposal in a Non-Gaussian GLMM setting, namely a Mixed Logit 
   Model, where the alternatives are scarce."
-
 authors:
 - admin
 - Eva Cantoni
 date: "2019-02"
-# doi: "https://doi.org/10.1016/j.csda.2018.08.006"
+links:
+- icon: doi
+  icon_pack: ai
+  name: Article
+  link: https://doi.org/10.1016/j.csda.2018.08.006
+- icon: github
+  icon_pack: fab
+  name: code
+  url: https://github.com/dfloresag/glmmBoot
 featured: false
 projects: []
 publication: '*Computational Statistics & Data Analysis* (130)'
@@ -41,11 +48,12 @@ publication_types:
 publishDate: "2017-01-01T00:00:00Z"
 summary: "A new way of computing the uncertainty in prediction of Random Effects with a novel Bootstrapping method."
 tags:
-- Source Themes
+- Bootstrap
+- MSEP
 title: Bootstrap estimation of uncertainty in prediction for generalized linear mixed models
 url_code: ""
 url_dataset: ""
-url_pdf: https://www.sciencedirect.com/science/article/abs/pii/S0167947318301890
+url_pdf: ""
 url_poster: ""
 url_project: ""
 url_slides: ""

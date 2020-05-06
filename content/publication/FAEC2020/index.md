@@ -14,25 +14,29 @@ authors:
 date: "2019-04-07T00:00:00Z"
 doi: ""
 featured: false
-image:
-  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
-  focal_point: ""
-  preview_only: false
+# image:
+#   caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
+#   focal_point: ""
+#   preview_only: false
 links:
-- name: Custom Link
-  url: http://example.org
-projects:
-- internal-project
+- icon: researchgate
+  icon_pack: ai
+  name: Preprint
+  link: https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation
+- icon: github
+  icon_pack: fab
+  name: code
+  url: https://github.com/dfloresag/glmmBoot
 publication: ""
 publication_short: ""
 publication_types:
 - "3"
 publishDate: "2017-01-01T00:00:00Z"
 # slides: example
-summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus
-  ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
+summary: A general way of bootstrapping based on externally generated random weights and the Laplace Approximation for integrals
 tags:
-- Source Themes
+- Bootstrap
+- Laplace Approximation
 title: "Bootstrapping generalized linear mixed models via a weighted Laplace approximation"
 url_code: ''
 url_dataset: ''
@@ -43,9 +47,3 @@ url_slides: ""
 url_source: ''
 url_video: ''
 ---
-
-{{% alert note %}}
-Click the *Slides* button above to demo Academic's Markdown slides feature.
-{{% /alert %}}
-
-Supplementary notes can be added here, including [code and math](https://sourcethemes.com/academic/docs/writing-markdown-latex/).

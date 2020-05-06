@@ -108,7 +108,17 @@
   </url>
   
   <url>
+    <loc>/tag/bootstrap/</loc>
+    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/publication/faec2020/</loc>
+    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/laplace-approximation/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -149,6 +159,11 @@
   
   <url>
     <loc>/publication/faec2019/</loc>
+    <lastmod>2017-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/msep/</loc>
     <lastmod>2017-01-01T00:00:00+00:00</lastmod>
   </url>
   
