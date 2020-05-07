@@ -17,16 +17,14 @@ image:
   # caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/bzdhc5b3Bxs)'
   # focal_point: Right
 links:
-- icon: 
-  # icon_pack: fab
-  name: Slides
+- name: Slides
   url: http://dfloresag.github.io/Talks/WIP2020/index.html
 location: School of Public Health and Preventive Medicine - Monash University
 math: true
 projects:
 publishDate: "2017-01-01T00:00:00Z"
 slides: (http://dfloresag.github.io/Talks/WIP2020/index.html)
-summary: An example talk using Academic's Markdown slides feature.
+summary: A discussion of Bootstrapping applied to Generalized Linear Mixed Models and Accelerated Failure Times. 
 tags: []
 title: Bootstrapping clustered data via a weighted Laplace approximation
 url_code: ""
@@ -35,3 +33,4 @@ url_slides: "http://dfloresag.github.io/Talks/WIP2020/index.html"
 url_video: ""
 ---
 
+Previous versions of this talk were presented at two other conferences. 
