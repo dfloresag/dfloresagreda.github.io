@@ -1,10 +1,8 @@
 ---
 authors:
 - admin
-- 吳恩達
 categories:
 - Demo
-- 教程
 date: "2016-04-20T00:00:00Z"
 draft: false
 featured: false
@@ -17,9 +15,9 @@ lastmod: "2019-04-17T00:00:00Z"
 projects: []
 subtitle: 'Create a beautifully simple website in under 10 minutes :rocket:'
 summary: Create a beautifully simple website in under 10 minutes.
-tags:
-- Academic
-- 开源
+# tags:
+# - Academic
+# - 开源
 title: 'Academic: the website builder for Hugo'
 ---
 

@@ -35,8 +35,10 @@ publishDate: "2017-01-01T00:00:00Z"
 # slides: example
 summary: A general way of bootstrapping based on externally generated random weights and the Laplace Approximation for integrals
 tags:
-- Bootstrap
+- Bootstrap 
+- GLMM 
 - Laplace Approximation
+- Random Weighting
 title: "Bootstrapping generalized linear mixed models via a weighted Laplace approximation"
 url_code: ''
 url_dataset: ''

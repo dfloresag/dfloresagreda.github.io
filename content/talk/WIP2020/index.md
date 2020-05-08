@@ -33,4 +33,7 @@ url_slides: "http://dfloresag.github.io/Talks/WIP2020/index.html"
 url_video: ""
 ---
 
-Previous versions of this talk were presented at two other conferences. 
+Versions of this talk were presented at two other conferences:
+
+- **XV Latin American Congress of Probability and Mathematical Statistics (XV CLAPEM)** - Merida, Yucatan, (Mexico). December 2019
+- **12th International Conference of the ERCIM WG on Computational and Methodological Statistics (CMStatistics 2019)** - London, (United Kingdom). December 2019

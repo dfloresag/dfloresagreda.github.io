@@ -9,20 +9,20 @@ date: "2020-07-01T00:00:00Z"
 doi: ""
 featured: false
 links:
-- name: Custom Link
-  url: http://example.org
-projects:
-- internal-project
+- icon: github
+  icon_pack: fab
+  name: code
+  url: https://github.com/dfloresag/aftRE
 publication: ''
 publication_short: ''
 publication_types:
-- "1"
+- "3"
 publishDate: "2017-01-01T00:00:00Z"
 # slides: example
 summary: 
-tags:
-- Source Themes
-title: 'A flexible tool for inference of Accelerated Failure Time       models with clustered data'
+# tags:
+# - Source Themes
+title: 'A flexible tool for inference of Accelerated Failure Time models with clustered data'
 url_code: ''
 url_dataset: ''
 url_pdf: ""
