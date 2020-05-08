@@ -19,9 +19,12 @@ publication_types:
 - "3"
 publishDate: "2017-01-01T00:00:00Z"
 # slides: example
-summary: 
-# tags:
-# - Source Themes
+summary: ""
+tags:
+- Accelerated Failure Time Models
+- Survival Analysis
+- Random effects
+- Laplace approximation
 title: 'A flexible tool for inference of Accelerated Failure Time models with clustered data'
 url_code: ''
 url_dataset: ''
