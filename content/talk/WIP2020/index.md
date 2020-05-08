@@ -11,9 +11,9 @@ authors: [Daniel Flores-Agreda, Eva Cantoni, Rory Wolfe, Stephane Heritier]
 date: "2020-04-08T09:30:00Z"
 date_end: "2020-04-08T10:30:00Z"
 event: Work in Progress (WIP) Seminar ViCBiostat.
-# event_url: http://dfloresag.github.io/Talks/WIP2020/index.html
+# event_url: https://dfloresag.github.io/Talks/WIP2020/index.html
 featured: false
-image:
+# image:
   # caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/bzdhc5b3Bxs)'
   # focal_point: Right
 links:
@@ -23,13 +23,13 @@ location: School of Public Health and Preventive Medicine - Monash University
 math: true
 projects:
 publishDate: "2017-01-01T00:00:00Z"
-slides: (http://dfloresag.github.io/Talks/WIP2020/index.html)
+slides: (https://dfloresag.github.io/Talks/WIP2020/index.html)
 summary: A discussion of Bootstrapping applied to Generalized Linear Mixed Models and Accelerated Failure Times. 
 tags: []
 title: Bootstrapping clustered data via a weighted Laplace approximation
 url_code: ""
 url_pdf: ""
-url_slides: "http://dfloresag.github.io/Talks/WIP2020/index.html"
+url_slides: "https://dfloresag.github.io/Talks/WIP2020/index.html"
 url_video: ""
 ---
 

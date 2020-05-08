@@ -30,10 +30,11 @@ authors:
 - admin
 - Eva Cantoni
 date: "2019-02"
+doi: https://doi.org/10.1016/j.csda.2018.08.006
 links:
 - icon: github
   icon_pack: fab
-  name: code
+  name: Code
   url: https://github.com/dfloresag/glmmBoot
 featured: false
 projects: []

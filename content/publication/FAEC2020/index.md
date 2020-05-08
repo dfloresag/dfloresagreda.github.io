@@ -19,13 +19,13 @@ featured: false
 #   focal_point: ""
 #   preview_only: false
 links:
-- icon: researchgate
-  icon_pack: ai
-  name: Preprint
-  link: https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation
+# - icon: researchgate
+#   icon_pack: ai
+#   name: Preprint
+#   link: (https://www.researchgate.net/profile/Daniel_Flores_Agreda)
 - icon: github
   icon_pack: fab
-  name: code
+  name: Code
   url: https://github.com/dfloresag/glmmBoot
 publication: ""
 publication_short: ""
@@ -33,7 +33,7 @@ publication_types:
 - "3"
 publishDate: "2017-01-01T00:00:00Z"
 # slides: example
-summary: A general way of bootstrapping based on externally generated random weights and the Laplace Approximation for integrals
+summary: A general way of bootstrapping based on externally generated random weights and the Laplace Approximation for integrals - _Under review_
 tags:
 - Bootstrap 
 - GLMM 
@@ -49,3 +49,4 @@ url_slides: ""
 url_source: ''
 url_video: ''
 ---
+ _Article currently under review_

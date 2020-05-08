@@ -11,7 +11,7 @@ featured: false
 links:
 - icon: github
   icon_pack: fab
-  name: code
+  name: Code
   url: https://github.com/dfloresag/aftRE
 publication: ''
 publication_short: ''
