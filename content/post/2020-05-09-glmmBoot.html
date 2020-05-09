@@ -8,6 +8,9 @@ tags: ["glmmBoot", "Bootstrap"]
 
 
 
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 <p>This code to illustrates the implementation of the bootstrapping methods described in <a href="https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation">(Flores-Agreda and Cantoni, Under Review)</a> in a real-data context. Data comes from the  example found in <a href="https://www.springer.com/gp/book/9780387251448">Molenberghs &amp; Verbeke (2006)</a> initially reported by <a href="https://www.ncbi.nlm.nih.gov/pubmed/8649570">Faught et. al. (1996)</a>.</p>
 <div id="analysis" class="section level2">
 <h2>Analysis</h2>
@@ -73,27 +76,6 @@ dyn.load(dynlib(&quot;glmmBoot/src/glmm_rirs&quot;))</code></pre>
 rwlb_reps &lt;- bootstrap_glmm(obj.glmerMod,
                             B = 1000,
                             method = &quot;rwlb&quot;)</code></pre>
-<pre><code>## Bootstrap Replicates via RWLB</code></pre>
-<pre><code>## Progress: =                   5%</code></pre>
-<pre><code>## Progress: ==                  10%</code></pre>
-<pre><code>## Progress: ===                 15%</code></pre>
-<pre><code>## Progress: ====                20%</code></pre>
-<pre><code>## Progress: =====               25%</code></pre>
-<pre><code>## Progress: ======              30%</code></pre>
-<pre><code>## Progress: =======             35%</code></pre>
-<pre><code>## Progress: ========            40%</code></pre>
-<pre><code>## Progress: =========           45%</code></pre>
-<pre><code>## Progress: ==========          50%</code></pre>
-<pre><code>## Progress: ===========         55%</code></pre>
-<pre><code>## Progress: ============        60%</code></pre>
-<pre><code>## Progress: =============       65%</code></pre>
-<pre><code>## Progress: ==============      70%</code></pre>
-<pre><code>## Progress: ===============     75%</code></pre>
-<pre><code>## Progress: ================    80%</code></pre>
-<pre><code>## Progress: =================   85%</code></pre>
-<pre><code>## Progress: ==================  90%</code></pre>
-<pre><code>## Progress: =================== 95%</code></pre>
-<pre><code>## Progress: ====================100%</code></pre>
 <p>The resulting Bootstrap replicates are stored in an object of the class <code>glmmBoot</code>, which can be used to construct</p>
 <ul>
 <li>Estimates of the Parameters: by averaging over the replicates</li>
@@ -115,13 +97,13 @@ rwlb_reps &lt;- bootstrap_glmm(obj.glmerMod,
 <pre><code>## # A tibble: 7 x 5
 ##   Parameters    Estimate Std_Errors ci_lower ci_upper
 ##   &lt;fct&gt;            &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)     0.891     0.150     0.596   1.19   
-## 2 rho            -0.326     0.170    -0.640  -0.00303
-## 3 s_1             1.12      0.137     0.894   1.44   
-## 4 s_2             0.0478    0.00759   0.0340  0.0639 
-## 5 studyweek      -0.0273    0.00900  -0.0451 -0.0101 
-## 6 trt            -0.229     0.256    -0.704   0.297  
-## 7 trt:studyweek   0.0110    0.0138   -0.0163  0.0366</code></pre>
+## 1 (Intercept)     0.890     0.153     0.601   1.19   
+## 2 rho            -0.322     0.166    -0.641  -0.00910
+## 3 s_1             1.11      0.129     0.892   1.40   
+## 4 s_2             0.0477    0.00737   0.0336  0.0631 
+## 5 studyweek      -0.0269    0.00881  -0.0445 -0.0105 
+## 6 trt            -0.243     0.252    -0.710   0.253  
+## 7 trt:studyweek   0.0104    0.0130   -0.0158  0.0370</code></pre>
 <ul>
 <li>Example of the studentized method</li>
 </ul>
@@ -130,13 +112,13 @@ rwlb_reps &lt;- bootstrap_glmm(obj.glmerMod,
 <pre><code>## # A tibble: 7 x 5
 ##   Parameters    Estimate Std_Errors ci_lower ci_upper
 ##   &lt;fct&gt;            &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)     0.891     0.150     0.610   1.19   
-## 2 rho            -0.326     0.170    -0.770  -0.0471 
-## 3 s_1             1.12      0.137     0.841   1.35   
-## 4 s_2             0.0478    0.00759   0.0320  0.0611 
-## 5 studyweek      -0.0273    0.00900  -0.0443 -0.00942
-## 6 trt            -0.229     0.256    -0.693   0.293  
-## 7 trt:studyweek   0.0110    0.0138   -0.0163  0.0371</code></pre>
+## 1 (Intercept)     0.890     0.153     0.608   1.20   
+## 2 rho            -0.322     0.166    -0.769  -0.0487 
+## 3 s_1             1.11      0.129     0.840   1.34   
+## 4 s_2             0.0477    0.00737   0.0319  0.0603 
+## 5 studyweek      -0.0269    0.00881  -0.0439 -0.00923
+## 6 trt            -0.243     0.252    -0.724   0.255  
+## 7 trt:studyweek   0.0104    0.0130   -0.0169  0.0365</code></pre>
 </div>
 <div id="plot" class="section level3">
 <h3><code>plot()</code></h3>

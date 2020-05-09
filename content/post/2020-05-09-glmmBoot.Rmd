@@ -7,8 +7,12 @@ tags: ["glmmBoot", "Bootstrap"]
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 This code to illustrates the implementation of the bootstrapping methods described in [(Flores-Agreda and Cantoni, Under Review)](https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation) in a real-data context. Data comes from the \emph{Epilepsy} example found in [Molenberghs & Verbeke (2006)](https://www.springer.com/gp/book/9780387251448) initially reported by [Faught et. al. (1996)](https://www.ncbi.nlm.nih.gov/pubmed/8649570). 
 
@@ -89,7 +93,7 @@ est_lmer %>%
 ```
 
 The generation of replicates using Random Weighted Laplace Bootstrap [(Flores-Agreda and Cantoni, Under Review)](https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation) is carried by the function `bootstrap_glmm()`, with the option `method=rwlb`. 
-```{r}
+```{r, message = FALSE}
 ## Bootstrap inference 
 rwlb_reps <- bootstrap_glmm(obj.glmerMod,
                             B = 1000,
