@@ -1,0 +1,143 @@
+---
+title: "Mixed Poisson Example with `glmmBoot`"
+author: "Daniel Flores Agreda"
+date: 09-05-2020
+categories: ["R"]
+tags: ["glmmBoot", "Bootstrap"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache=TRUE)
+```
+
+This code to illustrates the implementation of the bootstrapping methods described in [(Flores-Agreda and Cantoni, Under Review)](https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation) in a real-data context. Data comes from the \emph{Epilepsy} example found in [Molenberghs & Verbeke (2006)](https://www.springer.com/gp/book/9780387251448) initially reported by [Faught et. al. (1996)](https://www.ncbi.nlm.nih.gov/pubmed/8649570). 
+
+## Analysis
+
+To start performing the analysis, you need:
+
+1. the following packages:
+```{r, include = FALSE, message=FALSE, warnings=FALSE}
+library(lme4)
+library(glmmTMB)
+library(sas7bdat)
+library(TMB)
+library(dplyr)
+library(ggplot2)
+library(kableExtra)
+```
+
+```{r, message=FALSE, warning = FALSE, echo = FALSE, include = FALSE}
+compile(file = "~/Dropbox/Projects/Pro/glmmBoot/glmmBoot/src/glmm_rirs.cpp")
+dyn.load(dynlib("~/Dropbox/Projects/Pro/glmmBoot/glmmBoot/src/glmm_rirs"))
+source("~/Dropbox/Projects/Pro/glmmBoot/glmmBoot/R/glmmBoot.R")
+epilepsy <- read.sas7bdat(file = "~/Dropbox/Projects/Pro/glmmBoot/glmmBoot/data/epilepsy.sas7bdat")
+```
+
+2. to compile `glmm_rirs.cpp` and load the resulting binary into the environment:
+```r
+compile(file = "glmmBoot/src/glmm_rirs.cpp")
+dyn.load(dynlib("glmmBoot/src/glmm_rirs"))
+```
+
+3. the functions in the file `glmmBoot.R`:
+
+```r
+source("glmmBoot/R/glmmBoot.R")
+```
+
+4. the dataset `epilepsy.sas7bdat`
+```r
+epilepsy <- read.sas7bdat(file = "glmmBoot/data/epilepsy.sas7bdat")
+```
+
+## Model
+
+The aim of the study was to verify the effects of an new anti-epileptic drug (AED) compared to a placebo on the number of seizures experienced by patients during the study. To do this, consider a mixed Poisson model for the outcome containing two potentially correlated random effects: one for a random intercept and another one for the visit time i.e. $y_{ij}|\mathbf{u}_i\sim \mathcal{P}(\lambda_{ij})$ with: 
+
+$$\log(\lambda_{ij}) = \beta_0  + \beta_{1} T_{ij} + \beta_{2}t_{ij} + \beta_{3} T_{ij}t_{ij} +  \sigma_{1} u_{i1}  + \sigma_{2} u_{i2} t_{ij}$$
+
+where:
+
+- $T_{ij}$ represents the effect of the treatment and 
+- $t_{ij}$ the visit time. 
+
+The variance-covariance structure of the vector of Normal random effects $\mathbf{u}_i = [u_{i1}, u_{i2}]^T$, comprises a  correlation coefficient $\rho$ , i.e. 
+
+$$\mathbf{D}(\mathbf{\sigma}) = \left[\begin{array}{c c} \sigma_{1}^2 & \rho\sigma_{1}\sigma_{2} \\  \rho\sigma_{1}\sigma_{2} & \sigma_{2}^2 \end{array}\right]$$.
+
+## Implementation
+
+### `estimate_glmm()`
+
+The function `estimate_glmm()` estimates the model with a `TMB` template using the frame and estimates of objects of class `glmerMod` as starting values. For example: 
+```{r}
+obj.glmerMod <- lme4::glmer(nseizw~ trt*studyweek + (studyweek|id), 
+                            family = "poisson",
+                            data = epilepsy, 
+                            control = glmerControl(optimizer = "bobyqa"))
+```
+for comparison purposes, let us also extract the estimates of this object
+```{r, include = FALSE}
+est_lmer <- extract_estimates(obj.glmerMod)
+est_tmb  <- estimate_glmm(obj.glmerMod)
+```
+A comparison of the estimates yields:
+```{r}
+est_lmer %>% 
+  inner_join(est_tmb, by=("Parameters"), suffix=c(" (glmer)", " (TMB)")) 
+```
+
+The generation of replicates using Random Weighted Laplace Bootstrap [(Flores-Agreda and Cantoni, Under Review)](https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation) is carried by the function `bootstrap_glmm()`, with the option `method=rwlb`. 
+```{r}
+## Bootstrap inference 
+rwlb_reps <- bootstrap_glmm(obj.glmerMod,
+                            B = 1000,
+                            method = "rwlb")
+```
+
+The resulting Bootstrap replicates are stored in an object of the class `glmmBoot`, which can be used to construct 
+
+- Estimates of the Parameters: by averaging over the replicates
+- Estimates of the Standard Errors: by computing the standard deviations for the replicates and 
+- Percentile-based Confidence Intervals (CI) with a level of 95%.
+
+## Methods
+
+### `confint()` 
+
+produces bootstrap estimates, standard errors and confidence intervals with the `percentile` and `studentized` methods
+
+- Example of the percentile method
+
+```{r}
+rwlb_reps %>% 
+  confint(bootstrap_type = "percentile")
+```
+
+- Example of the studentized method
+```{r}
+rwlb_reps %>% 
+  confint(bootstrap_type = "studentized")
+```
+
+### `plot()` 
+
+Shows the boxplots of the replicates for all the parameters or a subset with a line describing the TMB estimates
+    
+- fixed effect parameters
+```{r}
+plot(rwlb_reps, 
+     parm_subset=c("(Intercept)", "trt", "studyweek", "trt:studyweek")) + 
+  ggtitle("Replicates of Fixed Effects") +
+  theme_classic()
+```
+
+- variances of random effects 
+```{r}
+plot(rwlb_reps, 
+     parm_subset=c("s_1", "s_2", "rho")) + 
+  ggtitle("Replicates of Variance Components")+theme_classic()
+```
+
+
