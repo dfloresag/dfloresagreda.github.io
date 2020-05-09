@@ -62,5 +62,166 @@ Figure 1: A fancy pie chart.
 </description>
     </item>
     
+    <item>
+      <title>Mixed Poisson Example with `glmmBoot`</title>
+      <link>/post/2020-05-09-glmmboot/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/post/2020-05-09-glmmboot/</guid>
+      <description>
+
+
+&lt;p&gt;This code to illustrates the implementation of the bootstrapping methods described in &lt;a href=&#34;https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation&#34;&gt;(Flores-Agreda and Cantoni, Under Review)&lt;/a&gt; in a real-data context. Data comes from the  example found in &lt;a href=&#34;https://www.springer.com/gp/book/9780387251448&#34;&gt;Molenberghs &amp;amp; Verbeke (2006)&lt;/a&gt; initially reported by &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pubmed/8649570&#34;&gt;Faught et. al. (1996)&lt;/a&gt;.&lt;/p&gt;
+&lt;div id=&#34;analysis&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Analysis&lt;/h2&gt;
+&lt;p&gt;To start performing the analysis, you need:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;the following packages:&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;to compile &lt;code&gt;glmm_rirs.cpp&lt;/code&gt; and load the resulting binary into the environment:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;compile(file = &amp;quot;glmmBoot/src/glmm_rirs.cpp&amp;quot;)
+dyn.load(dynlib(&amp;quot;glmmBoot/src/glmm_rirs&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;the functions in the file &lt;code&gt;glmmBoot.R&lt;/code&gt;:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;source(&amp;quot;glmmBoot/R/glmmBoot.R&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;4&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;the dataset &lt;code&gt;epilepsy.sas7bdat&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;epilepsy &amp;lt;- read.sas7bdat(file = &amp;quot;glmmBoot/data/epilepsy.sas7bdat&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;model&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Model&lt;/h2&gt;
+&lt;p&gt;The aim of the study was to verify the effects of an new anti-epileptic drug (AED) compared to a placebo on the number of seizures experienced by patients during the study. To do this, consider a mixed Poisson model for the outcome containing two potentially correlated random effects: one for a random intercept and another one for the visit time i.e. &lt;span class=&#34;math inline&#34;&gt;\(y_{ij}|\mathbf{u}_i\sim \mathcal{P}(\lambda_{ij})\)&lt;/span&gt; with:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\log(\lambda_{ij}) = \beta_0  + \beta_{1} T_{ij} + \beta_{2}t_{ij} + \beta_{3} T_{ij}t_{ij} +  \sigma_{1} u_{i1}  + \sigma_{2} u_{i2} t_{ij}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(T_{ij}\)&lt;/span&gt; represents the effect of the treatment and&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(t_{ij}\)&lt;/span&gt; the visit time.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The variance-covariance structure of the vector of Normal random effects &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{u}_i = [u_{i1}, u_{i2}]^T\)&lt;/span&gt;, comprises a correlation coefficient &lt;span class=&#34;math inline&#34;&gt;\(\rho\)&lt;/span&gt; , i.e.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\mathbf{D}(\mathbf{\sigma}) = \left[\begin{array}{c c} \sigma_{1}^2 &amp;amp; \rho\sigma_{1}\sigma_{2} \\  \rho\sigma_{1}\sigma_{2} &amp;amp; \sigma_{2}^2 \end{array}\right]\]&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;implementation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Implementation&lt;/h2&gt;
+&lt;div id=&#34;estimate_glmm&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;estimate_glmm()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;The function &lt;code&gt;estimate_glmm()&lt;/code&gt; estimates the model with a &lt;code&gt;TMB&lt;/code&gt; template using the frame and estimates of objects of class &lt;code&gt;glmerMod&lt;/code&gt; as starting values. For example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;obj.glmerMod &amp;lt;- lme4::glmer(nseizw~ trt*studyweek + (studyweek|id), 
+                            family = &amp;quot;poisson&amp;quot;,
+                            data = epilepsy, 
+                            control = glmerControl(optimizer = &amp;quot;bobyqa&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;for comparison purposes, let us also extract the estimates of this object&lt;/p&gt;
+&lt;p&gt;A comparison of the estimates yields:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;est_lmer %&amp;gt;% 
+  inner_join(est_tmb, by=(&amp;quot;Parameters&amp;quot;), suffix=c(&amp;quot; (glmer)&amp;quot;, &amp;quot; (TMB)&amp;quot;)) &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      Parameters Estimates (glmer) Std..Errors (glmer) Estimates (TMB)
+## 1   (Intercept)        0.89453458         0.178197278      0.89448691
+## 2           trt       -0.24426928         0.253821873     -0.24430693
+## 3     studyweek       -0.02714197         0.009853964     -0.02714537
+## 4 trt:studyweek        0.01067094         0.013847413      0.01067169
+## 5           s_1        1.12719788                  NA      1.12727064
+## 6           s_2        0.04871365                  NA      0.04871505
+## 7           rho       -0.33392838                  NA     -0.33387741
+##   Std..Errors (TMB)
+## 1       0.178577727
+## 2       0.254354415
+## 3       0.009920947
+## 4       0.013933258
+## 5       0.097487891
+## 6       0.005702102
+## 7       0.131163744&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The generation of replicates using Random Weighted Laplace Bootstrap &lt;a href=&#34;https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation&#34;&gt;(Flores-Agreda and Cantoni, Under Review)&lt;/a&gt; is carried by the function &lt;code&gt;bootstrap_glmm()&lt;/code&gt;, with the option &lt;code&gt;method=rwlb&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Bootstrap inference 
+rwlb_reps &amp;lt;- bootstrap_glmm(obj.glmerMod,
+                            B = 1000,
+                            method = &amp;quot;rwlb&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Bootstrap Replicates via RWLB&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: =                   5%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ==                  10%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ===                 15%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ====                20%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: =====               25%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ======              30%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: =======             35%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ========            40%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: =========           45%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ==========          50%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ===========         55%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ============        60%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: =============       65%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ==============      70%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ===============     75%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ================    80%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: =================   85%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ==================  90%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: =================== 95%&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Progress: ====================100%&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The resulting Bootstrap replicates are stored in an object of the class &lt;code&gt;glmmBoot&lt;/code&gt;, which can be used to construct&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Estimates of the Parameters: by averaging over the replicates&lt;/li&gt;
+&lt;li&gt;Estimates of the Standard Errors: by computing the standard deviations for the replicates and&lt;/li&gt;
+&lt;li&gt;Percentile-based Confidence Intervals (CI) with a level of 95%.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;methods&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Methods&lt;/h2&gt;
+&lt;div id=&#34;confint&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;confint()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;produces bootstrap estimates, standard errors and confidence intervals with the &lt;code&gt;percentile&lt;/code&gt; and &lt;code&gt;studentized&lt;/code&gt; methods&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Example of the percentile method&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rwlb_reps %&amp;gt;% 
+  confint(bootstrap_type = &amp;quot;percentile&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 5
+##   Parameters    Estimate Std_Errors ci_lower ci_upper
+##   &amp;lt;fct&amp;gt;            &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1 (Intercept)     0.891     0.150     0.596   1.19   
+## 2 rho            -0.326     0.170    -0.640  -0.00303
+## 3 s_1             1.12      0.137     0.894   1.44   
+## 4 s_2             0.0478    0.00759   0.0340  0.0639 
+## 5 studyweek      -0.0273    0.00900  -0.0451 -0.0101 
+## 6 trt            -0.229     0.256    -0.704   0.297  
+## 7 trt:studyweek   0.0110    0.0138   -0.0163  0.0366&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Example of the studentized method&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rwlb_reps %&amp;gt;% 
+  confint(bootstrap_type = &amp;quot;studentized&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 5
+##   Parameters    Estimate Std_Errors ci_lower ci_upper
+##   &amp;lt;fct&amp;gt;            &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1 (Intercept)     0.891     0.150     0.610   1.19   
+## 2 rho            -0.326     0.170    -0.770  -0.0471 
+## 3 s_1             1.12      0.137     0.841   1.35   
+## 4 s_2             0.0478    0.00759   0.0320  0.0611 
+## 5 studyweek      -0.0273    0.00900  -0.0443 -0.00942
+## 6 trt            -0.229     0.256    -0.693   0.293  
+## 7 trt:studyweek   0.0110    0.0138   -0.0163  0.0371&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plot&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;plot()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Shows the boxplots of the replicates for all the parameters or a subset with a line describing the TMB estimates&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;fixed effect parameters&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(rwlb_reps, 
+     parm_subset=c(&amp;quot;(Intercept)&amp;quot;, &amp;quot;trt&amp;quot;, &amp;quot;studyweek&amp;quot;, &amp;quot;trt:studyweek&amp;quot;)) + 
+  ggtitle(&amp;quot;Replicates of Fixed Effects&amp;quot;) +
+  theme_classic()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;variances of random effects&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(rwlb_reps, 
+     parm_subset=c(&amp;quot;s_1&amp;quot;, &amp;quot;s_2&amp;quot;, &amp;quot;rho&amp;quot;)) + 
+  ggtitle(&amp;quot;Replicates of Variance Components&amp;quot;)+theme_classic()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
