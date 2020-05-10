@@ -28,9 +28,15 @@ social:
 - icon: envelope
   icon_pack: fas
   link: 'mailto:daniel.flores.agreda@gmail.com'
+- icon: linkedin
+  icon_pack: fab
+  link: https://www.linkedin.com/in/daniel-flores-agreda-680a9a109/
 - icon: researchgate
   icon_pack: ai
   link: https://www.researchgate.net/profile/Daniel_Flores_Agreda
+- icon: orcid
+  icon_pack: ai
+  link: https://orcid.org/0000-0002-3291-2018
 - icon: github
   icon_pack: fab
   link: https://github.com/dfloresag
