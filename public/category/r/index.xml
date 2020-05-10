@@ -63,16 +63,13 @@ Figure 1: A fancy pie chart.
     </item>
     
     <item>
-      <title>Mixed Poisson Example with `glmmBoot`</title>
+      <title>Mixed Poisson Example with glmmBoot</title>
       <link>/post/2020-05-09-glmmboot/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/post/2020-05-09-glmmboot/</guid>
       <description>
 
 
-&lt;script type=&#34;text/javascript&#34;
-  src=&#34;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;&gt;
-&lt;/script&gt;
 &lt;p&gt;This code to illustrates the implementation of the bootstrapping methods described in &lt;a href=&#34;https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation&#34;&gt;(Flores-Agreda and Cantoni, Under Review)&lt;/a&gt; in a real-data context. Data comes from the  example found in &lt;a href=&#34;https://www.springer.com/gp/book/9780387251448&#34;&gt;Molenberghs &amp;amp; Verbeke (2006)&lt;/a&gt; initially reported by &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pubmed/8649570&#34;&gt;Faught et. al. (1996)&lt;/a&gt;.&lt;/p&gt;
 &lt;div id=&#34;analysis&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Analysis&lt;/h2&gt;
@@ -116,29 +113,156 @@ dyn.load(dynlib(&amp;quot;glmmBoot/src/glmm_rirs&amp;quot;))&lt;/code&gt;&lt;/pr
 &lt;p&gt;for comparison purposes, let us also extract the estimates of this object&lt;/p&gt;
 &lt;p&gt;A comparison of the estimates yields:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;est_lmer %&amp;gt;% 
-  inner_join(est_tmb, by=(&amp;quot;Parameters&amp;quot;), suffix=c(&amp;quot; (glmer)&amp;quot;, &amp;quot; (TMB)&amp;quot;)) &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##      Parameters Estimates (glmer) Std..Errors (glmer) Estimates (TMB)
-## 1   (Intercept)        0.89453458         0.178197278      0.89448691
-## 2           trt       -0.24426928         0.253821873     -0.24430693
-## 3     studyweek       -0.02714197         0.009853964     -0.02714537
-## 4 trt:studyweek        0.01067094         0.013847413      0.01067169
-## 5           s_1        1.12719788                  NA      1.12727064
-## 6           s_2        0.04871365                  NA      0.04871505
-## 7           rho       -0.33392838                  NA     -0.33387741
-##   Std..Errors (TMB)
-## 1       0.178577727
-## 2       0.254354415
-## 3       0.009920947
-## 4       0.013933258
-## 5       0.097487891
-## 6       0.005702102
-## 7       0.131163744&lt;/code&gt;&lt;/pre&gt;
+  inner_join(est_tmb, by=(&amp;quot;Parameters&amp;quot;), suffix=c(&amp;quot; (glmer)&amp;quot;, &amp;quot; (TMB)&amp;quot;)) %&amp;gt;% 
+  kable(digits = 4)&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Parameters
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Estimates (glmer)
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Std..Errors (glmer)
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Estimates (TMB)
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Std..Errors (TMB)
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+(Intercept)
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.8945
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1782
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.8945
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1786
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+trt
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.2443
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.2538
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.2443
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.2544
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+studyweek
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0271
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0099
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0271
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0099
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+trt:studyweek
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0107
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0138
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0107
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0139
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+s_1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1.1272
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1.1273
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0975
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+s_2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0487
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0487
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0057
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+rho
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.3339
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+NA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.3339
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1312
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;The generation of replicates using Random Weighted Laplace Bootstrap &lt;a href=&#34;https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation&#34;&gt;(Flores-Agreda and Cantoni, Under Review)&lt;/a&gt; is carried by the function &lt;code&gt;bootstrap_glmm()&lt;/code&gt;, with the option &lt;code&gt;method=rwlb&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;## Bootstrap inference 
 rwlb_reps &amp;lt;- bootstrap_glmm(obj.glmerMod,
                             B = 1000,
                             method = &amp;quot;rwlb&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The resulting Bootstrap replicates are stored in an object of the class &lt;code&gt;glmmBoot&lt;/code&gt;, which can be used to construct&lt;/p&gt;
+&lt;p&gt;The resulting Bootstrap replicates are stored in an object of the class &lt;code&gt;glmmBoot&lt;/code&gt;, which can be used to construct:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Estimates of the Parameters: by averaging over the replicates&lt;/li&gt;
 &lt;li&gt;Estimates of the Standard Errors: by computing the standard deviations for the replicates and&lt;/li&gt;
@@ -155,32 +279,298 @@ rwlb_reps &amp;lt;- bootstrap_glmm(obj.glmerMod,
 &lt;li&gt;Example of the percentile method&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rwlb_reps %&amp;gt;% 
-  confint(bootstrap_type = &amp;quot;percentile&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 5
-##   Parameters    Estimate Std_Errors ci_lower ci_upper
-##   &amp;lt;fct&amp;gt;            &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
-## 1 (Intercept)     0.890     0.153     0.601   1.19   
-## 2 rho            -0.322     0.166    -0.641  -0.00910
-## 3 s_1             1.11      0.129     0.892   1.40   
-## 4 s_2             0.0477    0.00737   0.0336  0.0631 
-## 5 studyweek      -0.0269    0.00881  -0.0445 -0.0105 
-## 6 trt            -0.243     0.252    -0.710   0.253  
-## 7 trt:studyweek   0.0104    0.0130   -0.0158  0.0370&lt;/code&gt;&lt;/pre&gt;
+  confint(bootstrap_type = &amp;quot;percentile&amp;quot;)%&amp;gt;% 
+  kable(digits = 4)&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Parameters
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Estimate
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Std_Errors
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+ci_lower
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+ci_upper
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+(Intercept)
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.8890
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1550
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.5771
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1.1726
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+rho
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.3193
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1623
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.6379
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0232
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+s_1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1.1068
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1288
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.8879
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1.3936
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+s_2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0471
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0073
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0335
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0625
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+studyweek
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0271
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0087
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0449
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0113
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+trt
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.2372
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.2512
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.7172
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.2332
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+trt:studyweek
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0106
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0139
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0164
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0375
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;ul&gt;
 &lt;li&gt;Example of the studentized method&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rwlb_reps %&amp;gt;% 
-  confint(bootstrap_type = &amp;quot;studentized&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 7 x 5
-##   Parameters    Estimate Std_Errors ci_lower ci_upper
-##   &amp;lt;fct&amp;gt;            &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;
-## 1 (Intercept)     0.890     0.153     0.608   1.20   
-## 2 rho            -0.322     0.166    -0.769  -0.0487 
-## 3 s_1             1.11      0.129     0.840   1.34   
-## 4 s_2             0.0477    0.00737   0.0319  0.0603 
-## 5 studyweek      -0.0269    0.00881  -0.0439 -0.00923
-## 6 trt            -0.243     0.252    -0.724   0.255  
-## 7 trt:studyweek   0.0104    0.0130   -0.0169  0.0365&lt;/code&gt;&lt;/pre&gt;
+  confint(bootstrap_type = &amp;quot;studentized&amp;quot;) %&amp;gt;%
+  kable(digits = 4)&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Parameters
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Estimate
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Std_Errors
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+ci_lower
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+ci_upper
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+(Intercept)
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.8890
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1550
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.5820
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1.1882
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+rho
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.3193
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1623
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.7402
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0651
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+s_1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1.1068
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.1288
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.8292
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1.3248
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+s_2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0471
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0073
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0316
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0601
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+studyweek
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0271
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0087
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0446
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0099
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+trt
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.2372
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.2512
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.7369
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.2429
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+trt:studyweek
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0106
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0139
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-0.0163
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+0.0374
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;/div&gt;
 &lt;div id=&#34;plot&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;&lt;code&gt;plot()&lt;/code&gt;&lt;/h3&gt;
@@ -192,14 +582,15 @@ rwlb_reps &amp;lt;- bootstrap_glmm(obj.glmerMod,
      parm_subset=c(&amp;quot;(Intercept)&amp;quot;, &amp;quot;trt&amp;quot;, &amp;quot;studyweek&amp;quot;, &amp;quot;trt:studyweek&amp;quot;)) + 
   ggtitle(&amp;quot;Replicates of Fixed Effects&amp;quot;) +
   theme_classic()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;variances of random effects&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(rwlb_reps, 
      parm_subset=c(&amp;quot;s_1&amp;quot;, &amp;quot;s_2&amp;quot;, &amp;quot;rho&amp;quot;)) + 
-  ggtitle(&amp;quot;Replicates of Variance Components&amp;quot;)+theme_classic()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+  ggtitle(&amp;quot;Replicates of Variance Components&amp;quot;)+
+  theme_classic()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

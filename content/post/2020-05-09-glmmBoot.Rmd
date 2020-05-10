@@ -1,5 +1,5 @@
 ---
-title: "Mixed Poisson Example with `glmmBoot`"
+title: "Mixed Poisson Example with glmmBoot"
 author: "Daniel Flores Agreda"
 date: 09-05-2020
 categories: ["R"]
@@ -7,12 +7,8 @@ tags: ["glmmBoot", "Bootstrap"]
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
-
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
 
 This code to illustrates the implementation of the bootstrapping methods described in [(Flores-Agreda and Cantoni, Under Review)](https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation) in a real-data context. Data comes from the \emph{Epilepsy} example found in [Molenberghs & Verbeke (2006)](https://www.springer.com/gp/book/9780387251448) initially reported by [Faught et. al. (1996)](https://www.ncbi.nlm.nih.gov/pubmed/8649570). 
 
@@ -31,7 +27,7 @@ library(ggplot2)
 library(kableExtra)
 ```
 
-```{r, message=FALSE, warning = FALSE, echo = FALSE, include = FALSE}
+```{r comp, message=FALSE, warning = FALSE, echo = FALSE, include = FALSE}
 compile(file = "~/Dropbox/Projects/Pro/glmmBoot/glmmBoot/src/glmm_rirs.cpp")
 dyn.load(dynlib("~/Dropbox/Projects/Pro/glmmBoot/glmmBoot/src/glmm_rirs"))
 source("~/Dropbox/Projects/Pro/glmmBoot/glmmBoot/R/glmmBoot.R")
@@ -89,7 +85,8 @@ est_tmb  <- estimate_glmm(obj.glmerMod)
 A comparison of the estimates yields:
 ```{r}
 est_lmer %>% 
-  inner_join(est_tmb, by=("Parameters"), suffix=c(" (glmer)", " (TMB)")) 
+  inner_join(est_tmb, by=("Parameters"), suffix=c(" (glmer)", " (TMB)")) %>% 
+  kable(digits = 4)
 ```
 
 The generation of replicates using Random Weighted Laplace Bootstrap [(Flores-Agreda and Cantoni, Under Review)](https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation) is carried by the function `bootstrap_glmm()`, with the option `method=rwlb`. 
@@ -100,7 +97,7 @@ rwlb_reps <- bootstrap_glmm(obj.glmerMod,
                             method = "rwlb")
 ```
 
-The resulting Bootstrap replicates are stored in an object of the class `glmmBoot`, which can be used to construct 
+The resulting Bootstrap replicates are stored in an object of the class `glmmBoot`, which can be used to construct:
 
 - Estimates of the Parameters: by averaging over the replicates
 - Estimates of the Standard Errors: by computing the standard deviations for the replicates and 
@@ -116,13 +113,15 @@ produces bootstrap estimates, standard errors and confidence intervals with the 
 
 ```{r}
 rwlb_reps %>% 
-  confint(bootstrap_type = "percentile")
+  confint(bootstrap_type = "percentile")%>% 
+  kable(digits = 4)
 ```
 
 - Example of the studentized method
 ```{r}
 rwlb_reps %>% 
-  confint(bootstrap_type = "studentized")
+  confint(bootstrap_type = "studentized") %>%
+  kable(digits = 4)
 ```
 
 ### `plot()` 
@@ -141,7 +140,8 @@ plot(rwlb_reps,
 ```{r}
 plot(rwlb_reps, 
      parm_subset=c("s_1", "s_2", "rho")) + 
-  ggtitle("Replicates of Variance Components")+theme_classic()
+  ggtitle("Replicates of Variance Components")+
+  theme_classic()
 ```
 
 

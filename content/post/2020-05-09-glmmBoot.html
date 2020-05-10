@@ -1,5 +1,5 @@
 ---
-title: "Mixed Poisson Example with `glmmBoot`"
+title: "Mixed Poisson Example with glmmBoot"
 author: "Daniel Flores Agreda"
 date: 09-05-2020
 categories: ["R"]
@@ -8,9 +8,6 @@ tags: ["glmmBoot", "Bootstrap"]
 
 
 
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
 <p>This code to illustrates the implementation of the bootstrapping methods described in <a href="https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation">(Flores-Agreda and Cantoni, Under Review)</a> in a real-data context. Data comes from the  example found in <a href="https://www.springer.com/gp/book/9780387251448">Molenberghs &amp; Verbeke (2006)</a> initially reported by <a href="https://www.ncbi.nlm.nih.gov/pubmed/8649570">Faught et. al. (1996)</a>.</p>
 <div id="analysis" class="section level2">
 <h2>Analysis</h2>
@@ -54,29 +51,156 @@ dyn.load(dynlib(&quot;glmmBoot/src/glmm_rirs&quot;))</code></pre>
 <p>for comparison purposes, let us also extract the estimates of this object</p>
 <p>A comparison of the estimates yields:</p>
 <pre class="r"><code>est_lmer %&gt;% 
-  inner_join(est_tmb, by=(&quot;Parameters&quot;), suffix=c(&quot; (glmer)&quot;, &quot; (TMB)&quot;)) </code></pre>
-<pre><code>##      Parameters Estimates (glmer) Std..Errors (glmer) Estimates (TMB)
-## 1   (Intercept)        0.89453458         0.178197278      0.89448691
-## 2           trt       -0.24426928         0.253821873     -0.24430693
-## 3     studyweek       -0.02714197         0.009853964     -0.02714537
-## 4 trt:studyweek        0.01067094         0.013847413      0.01067169
-## 5           s_1        1.12719788                  NA      1.12727064
-## 6           s_2        0.04871365                  NA      0.04871505
-## 7           rho       -0.33392838                  NA     -0.33387741
-##   Std..Errors (TMB)
-## 1       0.178577727
-## 2       0.254354415
-## 3       0.009920947
-## 4       0.013933258
-## 5       0.097487891
-## 6       0.005702102
-## 7       0.131163744</code></pre>
+  inner_join(est_tmb, by=(&quot;Parameters&quot;), suffix=c(&quot; (glmer)&quot;, &quot; (TMB)&quot;)) %&gt;% 
+  kable(digits = 4)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameters
+</th>
+<th style="text-align:right;">
+Estimates (glmer)
+</th>
+<th style="text-align:right;">
+Std..Errors (glmer)
+</th>
+<th style="text-align:right;">
+Estimates (TMB)
+</th>
+<th style="text-align:right;">
+Std..Errors (TMB)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.8945
+</td>
+<td style="text-align:right;">
+0.1782
+</td>
+<td style="text-align:right;">
+0.8945
+</td>
+<td style="text-align:right;">
+0.1786
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+trt
+</td>
+<td style="text-align:right;">
+-0.2443
+</td>
+<td style="text-align:right;">
+0.2538
+</td>
+<td style="text-align:right;">
+-0.2443
+</td>
+<td style="text-align:right;">
+0.2544
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+studyweek
+</td>
+<td style="text-align:right;">
+-0.0271
+</td>
+<td style="text-align:right;">
+0.0099
+</td>
+<td style="text-align:right;">
+-0.0271
+</td>
+<td style="text-align:right;">
+0.0099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+trt:studyweek
+</td>
+<td style="text-align:right;">
+0.0107
+</td>
+<td style="text-align:right;">
+0.0138
+</td>
+<td style="text-align:right;">
+0.0107
+</td>
+<td style="text-align:right;">
+0.0139
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s_1
+</td>
+<td style="text-align:right;">
+1.1272
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1.1273
+</td>
+<td style="text-align:right;">
+0.0975
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s_2
+</td>
+<td style="text-align:right;">
+0.0487
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0487
+</td>
+<td style="text-align:right;">
+0.0057
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rho
+</td>
+<td style="text-align:right;">
+-0.3339
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.3339
+</td>
+<td style="text-align:right;">
+0.1312
+</td>
+</tr>
+</tbody>
+</table>
 <p>The generation of replicates using Random Weighted Laplace Bootstrap <a href="https://www.researchgate.net/publication/315768128_Bootstrapping_Generalized_Linear_Mixed_Models_via_a_Weighted_Laplace_Approximation">(Flores-Agreda and Cantoni, Under Review)</a> is carried by the function <code>bootstrap_glmm()</code>, with the option <code>method=rwlb</code>.</p>
 <pre class="r"><code>## Bootstrap inference 
 rwlb_reps &lt;- bootstrap_glmm(obj.glmerMod,
                             B = 1000,
                             method = &quot;rwlb&quot;)</code></pre>
-<p>The resulting Bootstrap replicates are stored in an object of the class <code>glmmBoot</code>, which can be used to construct</p>
+<p>The resulting Bootstrap replicates are stored in an object of the class <code>glmmBoot</code>, which can be used to construct:</p>
 <ul>
 <li>Estimates of the Parameters: by averaging over the replicates</li>
 <li>Estimates of the Standard Errors: by computing the standard deviations for the replicates and</li>
@@ -93,32 +217,298 @@ rwlb_reps &lt;- bootstrap_glmm(obj.glmerMod,
 <li>Example of the percentile method</li>
 </ul>
 <pre class="r"><code>rwlb_reps %&gt;% 
-  confint(bootstrap_type = &quot;percentile&quot;)</code></pre>
-<pre><code>## # A tibble: 7 x 5
-##   Parameters    Estimate Std_Errors ci_lower ci_upper
-##   &lt;fct&gt;            &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)     0.890     0.153     0.601   1.19   
-## 2 rho            -0.322     0.166    -0.641  -0.00910
-## 3 s_1             1.11      0.129     0.892   1.40   
-## 4 s_2             0.0477    0.00737   0.0336  0.0631 
-## 5 studyweek      -0.0269    0.00881  -0.0445 -0.0105 
-## 6 trt            -0.243     0.252    -0.710   0.253  
-## 7 trt:studyweek   0.0104    0.0130   -0.0158  0.0370</code></pre>
+  confint(bootstrap_type = &quot;percentile&quot;)%&gt;% 
+  kable(digits = 4)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameters
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std_Errors
+</th>
+<th style="text-align:right;">
+ci_lower
+</th>
+<th style="text-align:right;">
+ci_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.8890
+</td>
+<td style="text-align:right;">
+0.1550
+</td>
+<td style="text-align:right;">
+0.5771
+</td>
+<td style="text-align:right;">
+1.1726
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rho
+</td>
+<td style="text-align:right;">
+-0.3193
+</td>
+<td style="text-align:right;">
+0.1623
+</td>
+<td style="text-align:right;">
+-0.6379
+</td>
+<td style="text-align:right;">
+-0.0232
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s_1
+</td>
+<td style="text-align:right;">
+1.1068
+</td>
+<td style="text-align:right;">
+0.1288
+</td>
+<td style="text-align:right;">
+0.8879
+</td>
+<td style="text-align:right;">
+1.3936
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s_2
+</td>
+<td style="text-align:right;">
+0.0471
+</td>
+<td style="text-align:right;">
+0.0073
+</td>
+<td style="text-align:right;">
+0.0335
+</td>
+<td style="text-align:right;">
+0.0625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+studyweek
+</td>
+<td style="text-align:right;">
+-0.0271
+</td>
+<td style="text-align:right;">
+0.0087
+</td>
+<td style="text-align:right;">
+-0.0449
+</td>
+<td style="text-align:right;">
+-0.0113
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+trt
+</td>
+<td style="text-align:right;">
+-0.2372
+</td>
+<td style="text-align:right;">
+0.2512
+</td>
+<td style="text-align:right;">
+-0.7172
+</td>
+<td style="text-align:right;">
+0.2332
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+trt:studyweek
+</td>
+<td style="text-align:right;">
+0.0106
+</td>
+<td style="text-align:right;">
+0.0139
+</td>
+<td style="text-align:right;">
+-0.0164
+</td>
+<td style="text-align:right;">
+0.0375
+</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>Example of the studentized method</li>
 </ul>
 <pre class="r"><code>rwlb_reps %&gt;% 
-  confint(bootstrap_type = &quot;studentized&quot;)</code></pre>
-<pre><code>## # A tibble: 7 x 5
-##   Parameters    Estimate Std_Errors ci_lower ci_upper
-##   &lt;fct&gt;            &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)     0.890     0.153     0.608   1.20   
-## 2 rho            -0.322     0.166    -0.769  -0.0487 
-## 3 s_1             1.11      0.129     0.840   1.34   
-## 4 s_2             0.0477    0.00737   0.0319  0.0603 
-## 5 studyweek      -0.0269    0.00881  -0.0439 -0.00923
-## 6 trt            -0.243     0.252    -0.724   0.255  
-## 7 trt:studyweek   0.0104    0.0130   -0.0169  0.0365</code></pre>
+  confint(bootstrap_type = &quot;studentized&quot;) %&gt;%
+  kable(digits = 4)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameters
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Std_Errors
+</th>
+<th style="text-align:right;">
+ci_lower
+</th>
+<th style="text-align:right;">
+ci_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.8890
+</td>
+<td style="text-align:right;">
+0.1550
+</td>
+<td style="text-align:right;">
+0.5820
+</td>
+<td style="text-align:right;">
+1.1882
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rho
+</td>
+<td style="text-align:right;">
+-0.3193
+</td>
+<td style="text-align:right;">
+0.1623
+</td>
+<td style="text-align:right;">
+-0.7402
+</td>
+<td style="text-align:right;">
+-0.0651
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s_1
+</td>
+<td style="text-align:right;">
+1.1068
+</td>
+<td style="text-align:right;">
+0.1288
+</td>
+<td style="text-align:right;">
+0.8292
+</td>
+<td style="text-align:right;">
+1.3248
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s_2
+</td>
+<td style="text-align:right;">
+0.0471
+</td>
+<td style="text-align:right;">
+0.0073
+</td>
+<td style="text-align:right;">
+0.0316
+</td>
+<td style="text-align:right;">
+0.0601
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+studyweek
+</td>
+<td style="text-align:right;">
+-0.0271
+</td>
+<td style="text-align:right;">
+0.0087
+</td>
+<td style="text-align:right;">
+-0.0446
+</td>
+<td style="text-align:right;">
+-0.0099
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+trt
+</td>
+<td style="text-align:right;">
+-0.2372
+</td>
+<td style="text-align:right;">
+0.2512
+</td>
+<td style="text-align:right;">
+-0.7369
+</td>
+<td style="text-align:right;">
+0.2429
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+trt:studyweek
+</td>
+<td style="text-align:right;">
+0.0106
+</td>
+<td style="text-align:right;">
+0.0139
+</td>
+<td style="text-align:right;">
+-0.0163
+</td>
+<td style="text-align:right;">
+0.0374
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="plot" class="section level3">
 <h3><code>plot()</code></h3>
@@ -130,13 +520,14 @@ rwlb_reps &lt;- bootstrap_glmm(obj.glmerMod,
      parm_subset=c(&quot;(Intercept)&quot;, &quot;trt&quot;, &quot;studyweek&quot;, &quot;trt:studyweek&quot;)) + 
   ggtitle(&quot;Replicates of Fixed Effects&quot;) +
   theme_classic()</code></pre>
-<p><img src="/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <ul>
 <li>variances of random effects</li>
 </ul>
 <pre class="r"><code>plot(rwlb_reps, 
      parm_subset=c(&quot;s_1&quot;, &quot;s_2&quot;, &quot;rho&quot;)) + 
-  ggtitle(&quot;Replicates of Variance Components&quot;)+theme_classic()</code></pre>
-<p><img src="/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+  ggtitle(&quot;Replicates of Variance Components&quot;)+
+  theme_classic()</code></pre>
+<p><img src="/post/2020-05-09-glmmBoot_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 </div>
