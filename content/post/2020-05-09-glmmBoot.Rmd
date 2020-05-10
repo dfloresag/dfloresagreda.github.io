@@ -103,6 +103,7 @@ The resulting Bootstrap replicates are stored in an object of the class `glmmBoo
 - Estimates of the Standard Errors: by computing the standard deviations for the replicates and 
 - Percentile-based Confidence Intervals (CI) with a level of 95%.
 
+
 ## Methods
 
 ### `confint()` 
