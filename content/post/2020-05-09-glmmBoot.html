@@ -13,7 +13,15 @@ tags: ["glmmBoot", "Bootstrap"]
 <h2>Analysis</h2>
 <p>To start performing the analysis, you need:</p>
 <ol style="list-style-type: decimal">
-<li><p>the following packages:</p></li>
+<li>the following packages:</li>
+</ol>
+<pre class="r"><code>library(lme4)
+library(glmmTMB)
+library(sas7bdat)
+library(TMB)
+library(dplyr)
+library(ggplot2)</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li>to compile <code>glmm_rirs.cpp</code> and load the resulting binary into the environment:</li>
 </ol>
 <pre class="r"><code>compile(file = &quot;glmmBoot/src/glmm_rirs.cpp&quot;)
@@ -37,7 +45,7 @@ dyn.load(dynlib(&quot;glmmBoot/src/glmm_rirs&quot;))</code></pre>
 <li><span class="math inline">\(t_{ij}\)</span> the visit time.</li>
 </ul>
 <p>The variance-covariance structure of the vector of Normal random effects <span class="math inline">\(\mathbf{u}_i = [u_{i1}, u_{i2}]^T\)</span>, comprises a correlation coefficient <span class="math inline">\(\rho\)</span> , i.e.</p>
-<p><span class="math display">\[\mathbf{D}(\mathbf{\sigma}) = \left[\begin{array}{c c} \sigma_{1}^2 &amp; \rho\sigma_{1}\sigma_{2} \\  \rho\sigma_{1}\sigma_{2} &amp; \sigma_{2}^2 \end{array}\right]\]</span>.</p>
+<p><span class="math display">\[\mathbf{D}(\mathbf{\sigma}) = \left[\begin{array}{c c} \sigma_{1}^2 &amp; \rho\sigma_{1}\sigma_{2} \\  \rho\sigma_{1}\sigma_{2} &amp; \sigma_{2}^2 \end{array}\right].\]</span></p>
 </div>
 <div id="implementation" class="section level2">
 <h2>Implementation</h2>
@@ -202,9 +210,9 @@ rwlb_reps &lt;- bootstrap_glmm(obj.glmerMod,
                             method = &quot;rwlb&quot;)</code></pre>
 <p>The resulting Bootstrap replicates are stored in an object of the class <code>glmmBoot</code>, which can be used to construct:</p>
 <ul>
-<li>Estimates of the Parameters: by averaging over the replicates</li>
-<li>Estimates of the Standard Errors: by computing the standard deviations for the replicates and</li>
-<li>Percentile-based Confidence Intervals (CI) with a level of 95%.</li>
+<li>Estimates of the Parameters: by averaging over the replicates.</li>
+<li>Estimates of the Standard Errors: by computing the standard deviations for the replicates.</li>
+<li>Percentile-based and Studentized Confidence Intervals (CI) with a level of 95%.</li>
 </ul>
 </div>
 </div>

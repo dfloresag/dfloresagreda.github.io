@@ -27,6 +27,15 @@ library(ggplot2)
 library(kableExtra)
 ```
 
+```r
+library(lme4)
+library(glmmTMB)
+library(sas7bdat)
+library(TMB)
+library(dplyr)
+library(ggplot2)
+```
+
 ```{r comp, message=FALSE, warning = FALSE, echo = FALSE, include = FALSE}
 compile(file = "~/Dropbox/Projects/Pro/glmmBoot/glmmBoot/src/glmm_rirs.cpp")
 dyn.load(dynlib("~/Dropbox/Projects/Pro/glmmBoot/glmmBoot/src/glmm_rirs"))
@@ -64,7 +73,7 @@ where:
 
 The variance-covariance structure of the vector of Normal random effects $\mathbf{u}_i = [u_{i1}, u_{i2}]^T$, comprises a  correlation coefficient $\rho$ , i.e. 
 
-$$\mathbf{D}(\mathbf{\sigma}) = \left[\begin{array}{c c} \sigma_{1}^2 & \rho\sigma_{1}\sigma_{2} \\  \rho\sigma_{1}\sigma_{2} & \sigma_{2}^2 \end{array}\right]$$.
+$$\mathbf{D}(\mathbf{\sigma}) = \left[\begin{array}{c c} \sigma_{1}^2 & \rho\sigma_{1}\sigma_{2} \\  \rho\sigma_{1}\sigma_{2} & \sigma_{2}^2 \end{array}\right].$$
 
 ## Implementation
 
@@ -99,10 +108,9 @@ rwlb_reps <- bootstrap_glmm(obj.glmerMod,
 
 The resulting Bootstrap replicates are stored in an object of the class `glmmBoot`, which can be used to construct:
 
-- Estimates of the Parameters: by averaging over the replicates
-- Estimates of the Standard Errors: by computing the standard deviations for the replicates and 
-- Percentile-based Confidence Intervals (CI) with a level of 95%.
-
+- Estimates of the Parameters: by averaging over the replicates.
+- Estimates of the Standard Errors: by computing the standard deviations for the replicates.
+- Percentile-based and Studentized Confidence Intervals (CI) with a level of 95%.
 
 ## Methods
 

@@ -25,7 +25,15 @@
 &lt;h2&gt;Analysis&lt;/h2&gt;
 &lt;p&gt;To start performing the analysis, you need:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;the following packages:&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;the following packages:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(lme4)
+library(glmmTMB)
+library(sas7bdat)
+library(TMB)
+library(dplyr)
+library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;to compile &lt;code&gt;glmm_rirs.cpp&lt;/code&gt; and load the resulting binary into the environment:&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;compile(file = &amp;quot;glmmBoot/src/glmm_rirs.cpp&amp;quot;)
@@ -49,7 +57,7 @@ dyn.load(dynlib(&amp;quot;glmmBoot/src/glmm_rirs&amp;quot;))&lt;/code&gt;&lt;/pr
 &lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(t_{ij}\)&lt;/span&gt; the visit time.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The variance-covariance structure of the vector of Normal random effects &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{u}_i = [u_{i1}, u_{i2}]^T\)&lt;/span&gt;, comprises a correlation coefficient &lt;span class=&#34;math inline&#34;&gt;\(\rho\)&lt;/span&gt; , i.e.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\mathbf{D}(\mathbf{\sigma}) = \left[\begin{array}{c c} \sigma_{1}^2 &amp;amp; \rho\sigma_{1}\sigma_{2} \\  \rho\sigma_{1}\sigma_{2} &amp;amp; \sigma_{2}^2 \end{array}\right]\]&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\mathbf{D}(\mathbf{\sigma}) = \left[\begin{array}{c c} \sigma_{1}^2 &amp;amp; \rho\sigma_{1}\sigma_{2} \\  \rho\sigma_{1}\sigma_{2} &amp;amp; \sigma_{2}^2 \end{array}\right].\]&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;implementation&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Implementation&lt;/h2&gt;
@@ -214,9 +222,9 @@ rwlb_reps &amp;lt;- bootstrap_glmm(obj.glmerMod,
                             method = &amp;quot;rwlb&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The resulting Bootstrap replicates are stored in an object of the class &lt;code&gt;glmmBoot&lt;/code&gt;, which can be used to construct:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Estimates of the Parameters: by averaging over the replicates&lt;/li&gt;
-&lt;li&gt;Estimates of the Standard Errors: by computing the standard deviations for the replicates and&lt;/li&gt;
-&lt;li&gt;Percentile-based Confidence Intervals (CI) with a level of 95%.&lt;/li&gt;
+&lt;li&gt;Estimates of the Parameters: by averaging over the replicates.&lt;/li&gt;
+&lt;li&gt;Estimates of the Standard Errors: by computing the standard deviations for the replicates.&lt;/li&gt;
+&lt;li&gt;Percentile-based and Studentized Confidence Intervals (CI) with a level of 95%.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
