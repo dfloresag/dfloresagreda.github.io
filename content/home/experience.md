@@ -2,8 +2,8 @@
 # Experience widget.
 widget = "experience"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
-active = false  # Activate this widget? true/false
-weight = 40  # Order that this section will appear.
+active = true  # Activate this widget? true/false
+weight = 100  # Order that this section will appear.
 
 title = "Experience"
 subtitle = ""
@@ -19,27 +19,30 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
   title = "Research Fellow (Biostatistics)"
-  company = "School of Public Health and Preventive Medicine Monash University"
+  company = """
+  School of Public Health and Preventive Medicine  
+  Monash University"""
   company_url = ""
   location = "Melbourne, Australia"
   date_start = "2019-02-03"
   date_end = ""
-  description = """
-  Responsibilities include:
-  
-  * Analysing
-  * Modelling
-  * Deploying
+  description = """Post-Doctoral Researcher funded by the National Health and Medical Research Council (NHMRC) on a Grant  entitled _Enhancing aspects of time-to-event analysis methodology in randomised trials_
   """
 
 [[experience]]
   title = "Junior Lecturer in Statistics"
-  company = "Faculty of Business and Economics - University of Lausanne"
+  company = """
+  Faculty of Business and Economics (HEC Lausanne)   
+  University of Lausanne"""
   company_url = ""
   location = "Lausanne, Switzerland"
   date_start = "2018-02-01"
   date_end = "2019-07-31"
-  description = """Taught electronic engineering and researched semiconductor physics."""
+  description = """Instructor of two classes in the _Business Analytics_ track of the MSc. in Management program. 
+  
+  * Time Series and Forecasting (2018)
+  * Forecasting I (2019)
+  """
 
 [[experience]]
   title = "Teaching and Research Assistant"
@@ -48,6 +51,23 @@ date_format = "Jan 2006"
   location = "Geneva, Switzerland"
   date_start = "2012-02-01"
   date_end = "2017-07-31"
-  description = """Taught electronic engineering and researched semiconductor physics."""
+  description = """
+  
+  Research in the context of a Doctoral Thesis project entitled _On the Inference of Random Effects in Generalized Linear Mixed Models_.
+
+  Teaching Assistant for various undergraduate and graduate-level courses:
+  BSc. in International Relations
+  * Mathematics I, 
+  
+  BSc. in Economics, 
+  * Statistics I  and II  
+  
+  MSc. in Economics
+  * Microeconometrics 
+  
+  MSc. in Statistics
+  * Generalized Linear and Additive Models, Experimental Design   
+  
+  """
 
 +++

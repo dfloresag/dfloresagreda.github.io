@@ -1,8 +1,8 @@
 ---
-title: "Mixed Poisson Example with glmmBoot"
+title: "Bootstrapping a Poisson GLMM with glmmBoot"
 author: "Daniel Flores Agreda"
-date: 09-05-2020
-categories: ["R"]
+date: "09 May 2020"
+categories: ["R", "Bootstrap", "GLMM"]
 tags: ["glmmBoot", "Bootstrap"]
 ---
 

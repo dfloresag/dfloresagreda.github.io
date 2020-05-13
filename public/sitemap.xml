@@ -88,6 +88,51 @@
   </url>
   
   <url>
+    <loc>/tag/bootstrap/</loc>
+    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/bootstrap/</loc>
+    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020-05-09-glmmboot/</loc>
+    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/glmm/</loc>
+    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/glmm/</loc>
+    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/glmmboot/</loc>
+    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/r/</loc>
+    <lastmod>2020-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/talk/wip2020/</loc>
     <lastmod>2020-04-08T09:30:00+00:00</lastmod>
   </url>
@@ -108,17 +153,7 @@
   </url>
   
   <url>
-    <loc>/tag/bootstrap/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/publication/faec2020/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/glmm/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
@@ -185,26 +220,6 @@
   <url>
     <loc>/project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>/tag/glmmboot/</loc>
-  </url>
-  
-  <url>
-    <loc>/post/2020-05-09-glmmboot/</loc>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-  </url>
-  
-  <url>
-    <loc>/category/r/</loc>
   </url>
   
 </urlset>

@@ -5,7 +5,7 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 09 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
@@ -13,9 +13,9 @@
     </image>
     
     <item>
-      <title>Mixed Poisson Example with glmmBoot</title>
+      <title>Bootstrapping a Poisson GLMM with glmmBoot</title>
       <link>/post/2020-05-09-glmmboot/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 09 May 2020 00:00:00 +0000</pubDate>
       <guid>/post/2020-05-09-glmmboot/</guid>
       <description>
 

@@ -19,7 +19,7 @@ publication_types:
 - "3"
 publishDate: "2017-01-01T00:00:00Z"
 # slides: example
-summary: ""
+summary: "_Working Paper_"
 tags:
 - Accelerated Failure Time Models
 - Survival Analysis
