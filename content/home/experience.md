@@ -46,7 +46,10 @@ date_format = "Jan 2006"
 
 [[experience]]
   title = "Teaching and Research Assistant"
-  company = "Research Center for Statistics - University of Geneva"
+  company = """
+  Research Center for Statistics  
+  Geneva School of Economics and Management  
+  University of Geneva"""
   company_url = ""
   location = "Geneva, Switzerland"
   date_start = "2012-02-01"
@@ -55,18 +58,21 @@ date_format = "Jan 2006"
   
   Research in the context of a Doctoral Thesis project entitled _On the Inference of Random Effects in Generalized Linear Mixed Models_.
 
-  Teaching Assistant for various undergraduate and graduate-level courses:
-  BSc. in International Relations
-  * Mathematics I, 
+  Teaching Assistant for various undergraduate and graduate-level courses.
   
-  BSc. in Economics, 
-  * Statistics I  and II  
+  BSc. in International Relations
+  * Mathematics I 
+  
+  BSc. in Economics 
+  * Statistics I
+  * Statistics II  
   
   MSc. in Economics
   * Microeconometrics 
   
   MSc. in Statistics
-  * Generalized Linear and Additive Models, Experimental Design   
+  * Generalized Linear and Additive Models
+  * Experimental Design   
   
   """
 
