@@ -8,9 +8,7 @@ simulations, we provide evidence of the good quality of the bootstrap approximat
 sampling distributions for the model parameters as well as evidence of their good finite sample properties when applied in a Mixed Logit Model. As a further illustration of the breadth
 of our proposal, we implement the method in a Mixed Poisson Model to analyze longitudinal
 data on the number of epileptic seizures."
-authors:
-- admin
-- Eva Cantoni
+authors: [admin, Eva Cantoni]
 date: "2019-04-07T00:00:00Z"
 doi: ""
 featured: false

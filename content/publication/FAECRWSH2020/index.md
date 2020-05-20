@@ -1,10 +1,6 @@
 ---
 abstract: 
-authors:
-- admin
-- Eva Cantoni
-- Rory Wolfe
-- Stephane Heritier
+authors: [admin, Eva Cantoni, Rory Wolfe, Stephane Heritier]
 date: "2020-07-01T00:00:00Z"
 doi: ""
 featured: false
