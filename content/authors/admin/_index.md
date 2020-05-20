@@ -44,7 +44,6 @@ superuser: true
 title: Daniel Flores-Agreda
 user_groups:
 - Researchers
-- Visitors
 ---
 
 I am a young statistician currently working as a Research Fellow in Biostatistics at the School of Public Health and Preventive Medicine of [Monash University](https://www.monash.edu/medicine/sphpm/units/biostats). I obtained my PhD in Statistics in 2017 at the [University of Geneva](https://www.unige.ch/gsem/en/research/institutes/rcs), then worked as a Junior Lecturer at the Faculty of Business and Economics of the [University of Lausanne](https://www.unil.ch/do/en/home.html) teaching courses on Forecasting. 

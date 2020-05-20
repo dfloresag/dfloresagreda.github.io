@@ -27,8 +27,8 @@ abstract: "In the framework of Mixed Models, it is often of interest to provide 
   properties of our proposal in a Non-Gaussian GLMM setting, namely a Mixed Logit 
   Model, where the alternatives are scarce."
 authors:
-- Eva Cantoni
 - admin
+- Eva Cantoni
 date: "2019-02"
 doi: https://doi.org/10.1016/j.csda.2018.08.006
 links:
