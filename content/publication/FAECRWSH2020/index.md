@@ -1,6 +1,6 @@
 ---
-abstract: 
-authors: [admin, Eva Cantoni, Rory Wolfe, Stephane Heritier]
+abstract: Daniel Flores-Agreda, Eva Cantoni, Rory Wolfe, Stephane Heritier - _Working Paper_
+# authors: [admin, Eva Cantoni, Rory Wolfe, Stephane Heritier]
 date: "2020-07-01T00:00:00Z"
 doi: ""
 featured: false
@@ -15,7 +15,9 @@ publication_types:
 - "3"
 publishDate: "2017-01-01T00:00:00Z"
 # slides: example
-summary: "_Working Paper_"
+summary: "_Daniel Flores-Agreda, Eva Cantoni, Rory Wolfe, Stephane Heritier_ \n
+
+_Working Paper_"
 tags:
 - Accelerated Failure Time Models
 - Survival Analysis

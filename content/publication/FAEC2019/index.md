@@ -26,7 +26,7 @@ abstract: "In the framework of Mixed Models, it is often of interest to provide 
   intervals. The second simulation study serves the purpose of illustrating the 
   properties of our proposal in a Non-Gaussian GLMM setting, namely a Mixed Logit 
   Model, where the alternatives are scarce."
-authors: [admin, Eva Cantoni]
+# authors: [admin, Eva Cantoni]
 date: "2019-02"
 doi: https://doi.org/10.1016/j.csda.2018.08.006
 links:
@@ -41,7 +41,9 @@ publication_short: ""
 publication_types:
 - "2"
 publishDate: "2017-01-01T00:00:00Z"
-summary: "A new way of computing the uncertainty in prediction of Random Effects with a novel Bootstrapping method."
+summary: "_Daniel Flores-Agreda, Eva Cantoni_ \n  
+
+A new way of computing the uncertainty in prediction of Random Effects with a novel Bootstrapping method."
 tags:
 - Bootstrap
 - GLMM

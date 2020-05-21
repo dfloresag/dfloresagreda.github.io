@@ -1,5 +1,5 @@
 ---
-abstract: "We consider the problem of bootstrapping Generalized Linear Mixed Models for exponential families in a 
+abstract: " Daniel Flores-Agreda, Eva Cantoni - _Under Review_ We consider the problem of bootstrapping Generalized Linear Mixed Models for exponential families in a 
 non-parametric manner. We propose a method based on the random weighting of the individual contributions to the joint distribution of outcomes and random effects and
 the use of the Laplace approximation method for integrals on this weighted joint distribution. We
 show the similarities between the random weighting of the Laplace-approximated log-Likelihood
@@ -8,7 +8,7 @@ simulations, we provide evidence of the good quality of the bootstrap approximat
 sampling distributions for the model parameters as well as evidence of their good finite sample properties when applied in a Mixed Logit Model. As a further illustration of the breadth
 of our proposal, we implement the method in a Mixed Poisson Model to analyze longitudinal
 data on the number of epileptic seizures."
-authors: [admin, Eva Cantoni]
+# authors: [admin, Eva Cantoni]
 date: "2019-04-07T00:00:00Z"
 doi: ""
 featured: false
@@ -31,7 +31,9 @@ publication_types:
 - "3"
 publishDate: "2017-01-01T00:00:00Z"
 # slides: example
-summary: A general way of bootstrapping based on externally generated random weights and the Laplace Approximation for integrals - _Under review_
+summary: "_Daniel Flores-Agreda, Eva Cantoni_ \n  
+
+A general way of bootstrapping based on externally generated random weights and the Laplace Approximation for integrals - _Under review_ "
 tags:
 - Bootstrap 
 - GLMM 
