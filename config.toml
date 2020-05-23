@@ -37,12 +37,21 @@ enableEmoji = true
 footnotereturnlinkcontents = "<sup>^</sup>"
 ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
+
+enableRobotsTXT = true
+canonifyURLs = true
+# and if you think your md file names or locations might change:
+#[permalinks]
+ #   post = "/blog/:title/"
+
 # Workaround Hugo publishing taxonomy URLs as plurals - consistently use singular across Academic.
 [permalinks]
   authors = "/author/:slug/"
   tags = "/tag/:slug/"
   categories = "/category/:slug/"
   publication_types = "/publication-type/:slug/"
+  post = "/blog/:title/"
+
 
 [outputs]
   home = [ "HTML", "RSS", "JSON", "WebAppManifest" ]
