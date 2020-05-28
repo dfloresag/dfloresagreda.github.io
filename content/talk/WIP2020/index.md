@@ -7,7 +7,7 @@ address:
   region: Victoria
   street: 553  
 all_day: false
-authors: [Eva Cantoni, Rory Wolfe, Stephane Heritier, admin]
+authors: [Daniel Flores-Agreda, Eva Cantoni, Rory Wolfe, Stephane Heritier]
 date: "2020-04-08T09:30:00Z"
 date_end: "2020-04-08T10:30:00Z"
 event: Work in Progress (WIP) Seminar ViCBiostat.

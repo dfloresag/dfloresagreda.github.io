@@ -1,5 +1,5 @@
 ---
-abstract: Daniel Flores-Agreda, Eva Cantoni, Rory Wolfe, Stephane Heritier - _Working Paper_
+abstract: _Working Paper_
 authors: [Daniel Flores-Agreda, Eva Cantoni, Rory Wolfe, Stephane Heritier]
 date: "2020-07-01T00:00:00Z"
 doi: ""
