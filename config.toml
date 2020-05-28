@@ -52,7 +52,6 @@ canonifyURLs = true
   publication_types = "/publication-type/:slug/"
   post = "/blog/:title/"
 
-
 [outputs]
   home = [ "HTML", "RSS", "JSON", "WebAppManifest" ]
   section = [ "HTML", "RSS" ]
