@@ -1,0 +1,23 @@
+---
+date: "2018-09-09T00:00:00Z"
+draft: false
+lastmod: "2018-09-09T00:00:00Z"
+linktitle: Answers to the task
+menu:
+  task:
+    name: Overview
+    weight: 1
+summary: Here are my responses to the task you gave me.
+title: Please show us some teaching skills
+# toc: false
+type: docs
+weight: 1
+---
+
+You will find below assignments in three categories:
+
+- some learner questions
+- some exercise topics
+- some content topics
+
+This illustrates the kind of work we do on a daily basis. Can you please choose at least four assignments (**at least one in each category**) and show us how you would handle them?

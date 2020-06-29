@@ -1,0 +1,66 @@
+---
+date: "2019-05-05T00:00:00+01:00"
+draft: false
+linktitle: Question A
+menu:
+  example:
+    parent: Example Topic
+    weight: 1
+title: Question A
+# toc: true
+type: docs
+weight: 1
+---
+
+
+
+<div id="question-a" class="section level2">
+<h2>Question A</h2>
+<div id="note" class="section level3">
+<h3>Note</h3>
+<p>This question is about setting up a working environment with RStudio. It was posted at the end of the unit <a href="https://github.com/xvrdm/unit-test/blob/master/dw0_0_1_RStudio_intro.md">installing_r (readable here)</a>. Don’t forget to watch the video at the top of the unit<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+</div>
+<div id="learner-message" class="section level3">
+<h3>Learner message</h3>
+<p><em>Hi,</em></p>
+<p><em>I’m trying to install everything on a PC (which is made available from my employer and dedicated to the course). Unfortunately, I’m having trouble already at the stage of installing the first packages. Here is what I get:</em></p>
+<pre class="r"><code>&gt; `install.packages(&quot;cowsay&quot;)`
+`Warning in install.packages(&quot;cowsay&quot;):`
+`lib = &quot;C:/Program Files/R/R-3.5.1/library&quot;&#39; is not writable`
+`Error in install.packages(&quot;cowsay&quot;) : unable to install packages`</code></pre>
+<p><em>I suspect that this is because my company didn’t give me all the rights on this PC (if a folder is not writable)? If so, I will ask our IT division for help.</em></p>
+<p><em>But I wanted to ask you first. I’m sorry that my computer knowledges are rather low and I’m unable to solve the problem by myself. Many thanks for your help in advance</em></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="response" class="section level3">
+<h3>Response</h3>
+<p>Hi <em>Learner</em>,</p>
+<p>Don’t worry. As with any new software, it is quite common to encounter problems during the first installation, specially if you are on a computer without full admin rights.</p>
+<p>Of course you could ask for the administrative rights, but I imagine that an easier alternative is to re-install <code>R</code> and its packages in a directory where you have full reading and writing rights.</p>
+<ol style="list-style-type: decimal">
+<li><p>If you go through this route, I suggest to un-install <code>R</code> by executing <code>C:/Program Files/R/R-3.5.1/unins000.exe</code>. Choose the prompts to erase all files and cache.</p></li>
+<li><p>Proceed to reinstall <code>R</code> with an installer you have downloaded from CRAN.</p></li>
+<li><p>During the installation process, <strong>when prompted about the installation directory</strong>, choose a folder where you have the writing permissions, for example: <code>C:/Users/&lt;yourusername&gt;/Documents/R/</code> (where you’d replace <code>&lt;yourusername&gt;</code> by your username in the computer)</p></li>
+<li><p>Once installation finishes, start <code>R</code> and try installing the package again.</p></li>
+</ol>
+<p>Do not hesitate to contact me or book a one-to-one session should you encounter any problems with this method. Good luck!</p>
+<p>Cheers,</p>
+<p>Daniel</p>
+<p><strong>Comments:</strong> I don’t know if this response is way too easy. Another option would be adapting the following post</p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="question-b" class="section level2">
+<h2>Question B</h2>
+<div id="note-1" class="section level3">
+<h3>Note</h3>
+<p>This question is about reshaping tables with packages {<code>tidyr</code>} and {<code>dplyr</code>}. It was posted at the end of the unit <a href="https://github.com/xvrdm/unit-test/blob/master/dw3_2_tidyr_export.md">reshaping_tibble (that you can find here)</a><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>On the platform, we have video players in the units, so learners don’t have to go to YouTube.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>This pdf is just an export of HTML content. The unit looks different on the platform, especially the quizzes.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

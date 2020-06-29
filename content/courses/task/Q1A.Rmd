@@ -1,0 +1,71 @@
+---
+date: "2019-05-05T00:00:00+01:00"
+draft: false
+linktitle: Question A
+menu:
+  example:
+    parent: Example Topic
+    weight: 1
+title: Question A
+# toc: true
+type: docs
+weight: 1
+---
+
+## Question A
+
+### Note
+
+This question is about setting up a working environment with RStudio. It was posted at the end of the unit [installing_r (readable here)](https://github.com/xvrdm/unit-test/blob/master/dw0_0_1_RStudio_intro.md). Don’t forget to watch the video at the top of the unit^[On the platform, we have video players in the units, so learners don’t have to go to YouTube.].
+
+### Learner message
+
+_Hi,_
+
+_I'm trying to install everything on a PC (which is made available from my employer and dedicated to the course). Unfortunately, I'm having trouble already at the stage of installing the first packages. Here is what I get:_
+
+```r
+> `install.packages("cowsay")`
+`Warning in install.packages("cowsay"):`
+`lib = "C:/Program Files/R/R-3.5.1/library"' is not writable`
+`Error in install.packages("cowsay") : unable to install packages`
+```
+
+_I suspect that this is because my company didn't give me all the rights on this PC (if a folder is not writable)? If so, I will ask our IT division for help._
+
+_But I wanted to ask you first. I'm sorry that my computer knowledges are rather low and I'm unable to solve the problem by myself. Many thanks for your help in advance_
+
+\newpage
+
+### Response 
+
+Hi _Learner_, 
+
+Don't worry. As with any new software, it is quite common to encounter problems during the first installation, specially if you are on a computer without full admin rights. 
+
+Of course you could ask for the administrative rights, but I imagine that an easier alternative is to re-install `R` and its packages in a directory where you have full reading and writing rights.
+
+1. If you go through this route, I  suggest to un-install `R` by executing `C:/Program Files/R/R-3.5.1/unins000.exe`. Choose the prompts to erase all files and cache. 
+
+2. Proceed to reinstall `R` with an installer you have downloaded from CRAN.
+
+3. During the installation process, **when prompted about the installation directory**, choose a folder where you have the writing permissions, for example: `C:/Users/<yourusername>/Documents/R/` (where you'd replace `<yourusername>` by your username in the computer)
+
+4. Once installation finishes, start `R` and try installing the package again. 
+
+Do not hesitate to contact me or book a one-to-one session should you encounter any problems with this method. Good luck!
+
+Cheers, 
+
+Daniel 
+
+
+**Comments:** I don't know if this response is way too easy. Another option would be adapting the following post
+
+\newpage 
+
+## Question B
+
+### Note
+
+This question is about reshaping tables with packages {`tidyr`} and {`dplyr`}. It was posted at the end of the unit [reshaping_tibble (that you can find here)](https://github.com/xvrdm/unit-test/blob/master/dw3_2_tidyr_export.md)^[This pdf is just an export of HTML content. The unit looks different on the platform, especially the quizzes.].
